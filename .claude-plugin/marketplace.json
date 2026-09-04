@@ -1,0 +1,14 @@
+{
+  "name": "Douglasg.castro_Skills",
+  "owner": {
+    "name": "Douglas Garcia",
+    "url": "https://youtube.com/@Douglasg.castro"
+  },
+  "plugins": [
+    {
+      "name": "douglasg-castro-skills",
+      "source": "./",
+      "description": "Skills públicas para Claude Code do canal @Douglasg.castro. Conteúdo em português."
+    }
+  ]
+}
