@@ -25,7 +25,7 @@ uma linha no seu `CLAUDE.md`).
 
 **Como plugin (1 comando):**
 ```
-/plugin marketplace add Douglasg-castro/Douglasg.castro_Skills
+/plugin marketplace add douglas21grcont-wq/Douglasg.castro_Skills
 /plugin install douglasg-castro-skills
 ```
 

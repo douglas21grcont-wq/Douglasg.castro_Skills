@@ -28,7 +28,7 @@ estado dele, para a próxima sessão (ou a próxima máquina) retomar sem se per
 ## Instalar como plugin (alternativa, 1 comando)
 
 ```
-/plugin marketplace add Douglasg-castro/Douglasg.castro_Skills
+/plugin marketplace add douglas21grcont-wq/Douglasg.castro_Skills
 /plugin install douglasg-castro-skills
 ```
 
