@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Acionamento Prático: /spec-driven</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f4f6f9; color: #0f172a; line-height: 1.7; }
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
+    .header { background: #2563eb; color: #fff; padding: 32px; border-radius: 12px; margin-bottom: 36px; }
+    .header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .header p { font-size: 13px; opacity: .9; }
+
+    .step { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px; margin-bottom: 24px; position: relative; padding-left: 60px; }
+    .step-number { position: absolute; left: 20px; top: 24px; width: 36px; height: 36px; background: #2563eb; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; }
+    .step h3 { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 10px; }
+    .step p { font-size: 13px; color: #374151; margin-bottom: 12px; }
+
+    .code-cmd { background: #1e293b; color: #e2e8f0; padding: 12px 16px; border-radius: 8px; font-family: monospace; font-size: 12px; margin: 12px 0; border-left: 3px solid #2563eb; }
+
+    .input-box { background: #eff6ff; border: 2px dashed #2563eb; border-radius: 8px; padding: 14px; margin: 12px 0; font-size: 12px; }
+    .input-label { font-weight: 700; color: #1d4ed8; margin-bottom: 6px; }
+
+    .output-box { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 14px; margin: 12px 0; font-size: 12px; }
+    .output-label { font-weight: 700; color: #059669; margin-bottom: 6px; }
+
+    .timeline-flow { background: #f0f4f8; border-left: 3px solid #2563eb; padding: 16px; border-radius: 6px; margin: 16px 0; font-size: 12px; }
+    .flow-step { margin: 8px 0; padding-left: 16px; position: relative; }
+    .flow-step::before { content: "→"; position: absolute; left: 0; color: #2563eb; font-weight: 700; }
+
+    .actor { display: inline-block; padding: 3px 8px; border-radius: 4px; font-weight: 600; font-size: 11px; margin-right: 6px; }
+    .actor-você { background: #eff6ff; color: #1d4ed8; }
+    .actor-skill { background: #f5f3ff; color: #7c3aed; }
+    .actor-agente { background: #fee2e2; color: #991b1b; }
+
+    .interaction { background: #fff; border: 1px solid #border; border-radius: 8px; padding: 14px; margin: 14px 0; }
+    .interaction strong { color: #2563eb; }
+
+    .timing { background: #fff8dc; border-left: 3px solid #d97706; padding: 12px; border-radius: 6px; font-size: 12px; margin: 12px 0; }
+    .timing strong { color: #b45309; }
+
+    @media (max-width: 768px) {
+      .step { padding-left: 50px; }
+      .step-number { left: 12px; }
+      .header h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎬 Acionamento Prático</h1>
+      <p>Passo a passo: como você usaria /spec-driven no dia a dia</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">0</div>
+      <h3>Cenário: Você identifica um problema</h3>
+      <p>Está testando o Portal DG no celular e vê que a tela de Acompanhamento de Projetos está quebrada (layout horizontal, botões sobrepostos).</p>
+      <p>Você pensa: <em>"Preciso de uma Spec clara disso para delegar para o agente"</em></p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">1</div>
+      <h3><span class="actor actor-você">Você</span> Dispara a skill</h3>
+      <p>Abre VS Code (ou Claude Code), digita:</p>
+      <div class="code-cmd">/spec-driven</div>
+      <p>A skill carrega. Ela te pede informações ou oferece um template.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <h3><span class="actor actor-skill">Skill</span> Captura a Spec (interativa)</h3>
+      <p>A skill tem 2 modos:</p>
+
+      <h4 style="font-size: 12px; font-weight: 700; margin-top: 12px; margin-bottom: 8px;">Modo A: Você traz pronto</h4>
+      <div class="input-box">
+        <div class="input-label">Input esperado (você copia/cola):</div>
+        <code style="font-size: 11px; display: block; white-space: pre-wrap;">---
+projeto: Portal DG
+módulo: Acompanhamento de Projetos
+problema: Layout quebrado em mobile (≤768px)
+objetivo: 100% responsividade
+critérios: topbar sem overflow, tabelas scroll interno, botões ≥44px
+---</code>
+      </div>
+
+      <h4 style="font-size: 12px; font-weight: 700; margin-top: 12px; margin-bottom: 8px;">Modo B: Skill guia (Q&A)</h4>
+      <p style="font-size: 12px; margin-bottom: 8px;">Skill faz perguntas:</p>
+      <div class="timeline-flow">
+        <div class="flow-step">Qual é o projeto? (Portal DG)</div>
+        <div class="flow-step">Módulo afetado? (Acompanhamento de Projetos)</div>
+        <div class="flow-step">Qual é o problema? (Layout quebra em mobile)</div>
+        <div class="flow-step">Qual é a restrição? (Design system azul, sem mudança em PHP)</div>
+        <div class="flow-step">Qual o breakpoint? (768px)</div>
+      </div>
+      <p style="font-size: 12px; margin-top: 12px;">Skill consolida as respostas e monta a Spec estruturada.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <h3><span class="actor actor-skill">Skill</span> Cria documento de Spec</h3>
+      <p>A skill gera um artifact com a Spec formatada (como o que fiz antes). Você revisa rápido.</p>
+      <div class="output-box">
+        <div class="output-label">Output (artifact):</div>
+        Spec: Responsividade Mobile — Portal DG<br>
+        • Problema: layout quebrado ≤768px<br>
+        • Objetivo: 100% funcional mobile<br>
+        • Critérios: 8 checklist items<br>
+        • Regras: Design system + sem PHP
+      </div>
+      <div class="timing">
+        <strong>⏱ Tempo gasto:</strong> 2 minutos (você ou skill formando a Spec)
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <h3><span class="actor actor-skill">Skill</span> Dispara agente</h3>
+      <p>Skill faz as verificações finais ("Spec está clara?") e dispara o agente <code>spec-executor</code>:</p>
+      <div class="code-cmd">Agent.spawn(spec_executor, {
+  spec_url: artifact_da_spec,
+  projeto: "Portal DG",
+  modulo: "Acompanhamento de Projetos"
+})</div>
+      <p style="font-size: 12px; margin-top: 12px; color: #64748b;">Neste ponto, o trabalho pesado SAI da sua sessão. Agente roda isolado.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <h3><span class="actor actor-agente">Agente: spec-executor</span> Orquestra tudo</h3>
+      <p>O agente executa o ciclo completo em paralelo:</p>
+
+      <div class="interaction">
+        <strong>5a. Opus: Plano</strong><br>
+        <span style="font-size: 12px;">Lê a Spec, divide em 10 etapas. Volta com um plano detalhado.</span>
+      </div>
+
+      <div class="interaction">
+        <strong>5b. Sonnet: Executa</strong><br>
+        <span style="font-size: 12px;">Pega o plano, aplica cada etapa. Edita os 4 arquivos (.php) do módulo, gerando código.</span>
+      </div>
+
+      <div class="interaction">
+        <strong>5c. Haikus: Auditam em paralelo</strong><br>
+        <span style="font-size: 12px;">Enquanto Sonnet trabalha (ou depois), 3 Haikus validam:<br>
+        • Haiku 1: "Tokens CSS respeitados?"<br>
+        • Haiku 2: "Responsividade OK?"<br>
+        • Haiku 3: "Acessibilidade OK?"<br>
+        Cada um gera um relatório isolado.</span>
+      </div>
+
+      <div class="interaction">
+        <strong>5d. Consolida relatório</strong><br>
+        <span style="font-size: 12px;">Agente junta tudo: código final + 3 auditorias + checklist de sucesso.</span>
+      </div>
+
+      <div class="timing">
+        <strong>⏱ Tempo de agente:</strong> ~2-3 minutos (orquestra tudo, roda auditorias, retorna relatório)
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">6</div>
+      <h3><span class="actor actor-você">Você</span> Recebe o resultado</h3>
+      <p>Agente envia uma notificação. Você vê um relatório consolidado:</p>
+
+      <div class="output-box">
+        <div class="output-label">Relatório Final (artifact):</div>
+        <strong style="color: #059669;">✓ SPEC ATENDIDA</strong><br><br>
+        <strong>Código gerado:</strong><br>
+        • Acompanhamento_de_projetos/index.php — @media 768px<br>
+        • Acompanhamento_de_projetos/projeto.php — topbar responsive<br>
+        • Acompanhamento_de_projetos/editar.php — inputs 100%<br>
+        • Acompanhamento_de_projetos/gantt.php — max-width<br><br>
+        <strong>Auditorias:</strong><br>
+        ✓ Tokens CSS — PASS (0 hardcoded colors)<br>
+        ✓ Responsividade — PASS (8/8 critérios)<br>
+        ✓ Acessibilidade — PASS (44px, tap targets)<br><br>
+        <strong>Próximos passos:</strong><br>
+        1. Testar em dispositivo real (iPhone/Android)<br>
+        2. Se OK → git add + commit<br>
+        3. Atualizar handoff com lições aprendidas
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">7</div>
+      <h3><span class="actor actor-você">Você</span> Testa e aprova</h3>
+      <p>Você abre o código gerado, testa em um dispositivo mobile real ou emulador:</p>
+      <div class="code-cmd">cd "C:\Users\User\OneDrive - Planning\VS CODE\Portal DG\Portal-DG---Frontend_2.0"
+# Testar localmente (PHP server, Hostinger staging, etc)
+# Comparar com Spec: "Topbar cabe? Tabelas scrollam? Botões têm 44px?"</div>
+      <p style="font-size: 12px; margin-top: 12px;">Se tudo OK, você aprova. Se houver problema, volta com feedback específico e o agente refina.</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">8</div>
+      <h3><span class="actor actor-você">Você</span> Faz o commit</h3>
+      <p>VS Code → Source Control → Stage files → Commit com mensagem clara:</p>
+      <div class="code-cmd">feat: responsividade mobile — Acompanhamento de Projetos
+
+- Topbar responsivo em ≤768px
+- Tabelas com scroll horizontal
+- Botões ≥44px (toque confortável)
+- Design system azul mantido
+- Sem mudança em PHP (0 regressão)</div>
+      <p style="font-size: 12px; margin-top: 12px;">Você que faz o push (conforme suas regras).</p>
+    </div>
+
+    <div class="step">
+      <div class="step-number">9</div>
+      <h3><span class="actor actor-você">Você</span> Atualiza o handoff (próxima vez)</h3>
+      <p>Cria um handoff.md com o que aprendeu:</p>
+      <div class="code-cmd">## Responsividade Mobile — Concluído 2026-09-04
+
+O que funcionou:
+- Usar Spec clara com critérios testáveis
+- @media 768px como breakpoint
+- Overflow-x: auto em tabelas (melhor que card conversion)
+
+O que não fazer:
+- Nunca truncar dados em mobile sem aviso
+- Não mexer em PHP (apenas CSS)
+
+Próxima vez:
+- Verificar responsive em gantt.php antes (é gráfico, complexo)
+- Testar com dados reais (100+ projetos)</div>
+      <p style="font-size: 12px; margin-top: 12px;">Handoff é lido automaticamente na próxima iteração.</p>
+    </div>
+
+    <div class="step" style="background: linear-gradient(135deg, #eff6ff, #f5f3ff);">
+      <div class="step-number" style="background: #2563eb;">📊</div>
+      <h3>Resumo: Fluxo Total</h3>
+
+      <div class="timeline-flow" style="border-left-color: #2563eb; background: #fff;">
+        <div class="flow-step"><strong>Você:</strong> /spec-driven (2 min)</div>
+        <div class="flow-step"><strong>Você/Skill:</strong> Captura Spec (1 min)</div>
+        <div class="flow-step"><strong>Skill:</strong> Monta Spec em artifact (1 min)</div>
+        <div class="flow-step"><strong>Skill:</strong> Dispara agente (instant)</div>
+        <div class="flow-step"><strong>Agente:</strong> Opus plano + Sonnet código + 3 Haikus auditam (2-3 min, paralelo)</div>
+        <div class="flow-step"><strong>Agente:</strong> Retorna relatório com código + auditorias (instant notification)</div>
+        <div class="flow-step"><strong>Você:</strong> Testa em device real (5-10 min, sua responsabilidade)</div>
+        <div class="flow-step"><strong>Você:</strong> Commit + push (1 min)</div>
+      </div>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; padding: 14px; border-radius: 8px; margin-top: 16px; font-size: 12px;">
+        <strong style="color: #059669;">⏱ Tempo total esperado:</strong> 15-20 minutos (você) + 2-3 minutos (agente, paralelo)<br>
+        <strong style="color: #059669;">Resultado:</strong> Código gerado + auditado + pronto para produção
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">❓</div>
+      <h3>Perguntas frequentes sobre esse fluxo</h3>
+
+      <div style="margin-top: 14px;">
+        <strong style="font-size: 12px; color: #0f172a;">P: E se o agente errar?</strong><br>
+        <span style="font-size: 12px; color: #374151;">R: Você vê no relatório qual auditoria falhou. Refina a Spec ("não use overflow-x, use grid mobile") e dispara de novo.</span>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <strong style="font-size: 12px; color: #0f172a;">P: Preciso saber o que o agente fez antes de testar?</strong><br>
+        <span style="font-size: 12px; color: #374151;">R: Sim. Agente gera um diff legível. Você revisa a lógica (CSS) antes de testar. Não é caixa-preta.</span>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <strong style="font-size: 12px; color: #0f172a;">P: Posso usar isso para outros projetos (Nilo, Profarm)?</strong><br>
+        <span style="font-size: 12px; color: #374151;">R: Sim! Spec funciona pra tudo. Mude só projeto/módulo/critérios na captura.</span>
+      </div>
+
+      <div style="margin-top: 12px;">
+        <strong style="font-size: 12px; color: #0f172a;">P: E se não tiver handoff no começo (como agora)?</strong><br>
+        <span style="font-size: 12px; color: #374151;">R: Sem problema. Spec é clara o suficiente. Handoff é bonus para iterações futuras.</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

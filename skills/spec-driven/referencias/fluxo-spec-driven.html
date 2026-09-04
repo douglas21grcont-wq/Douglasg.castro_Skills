@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fluxo Spec-Driven: Ciclo Completo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #f4f6f9; color: #0f172a; line-height: 1.6; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+    .header { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff; padding: 40px; border-radius: 12px; margin-bottom: 40px; }
+    .header h1 { font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .header p { font-size: 14px; opacity: .9; }
+
+    .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; margin-bottom: 40px; }
+    .timeline-step { background: #fff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center; transition: all .2s; }
+    .timeline-step.active { border-color: #2563eb; background: #eff6ff; box-shadow: 0 4px 12px rgba(37,99,235,.15); }
+    .timeline-step .number { font-size: 28px; font-weight: 800; color: #2563eb; margin-bottom: 8px; }
+    .timeline-step .title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #0f172a; margin-bottom: 6px; }
+    .timeline-step .desc { font-size: 11px; color: #64748b; }
+
+    .phase { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+    .phase h2 { font-size: 18px; font-weight: 700; color: #2563eb; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .phase-number { width: 32px; height: 32px; background: #2563eb; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+
+    .task-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 14px; }
+    .task { background: #f0f4f8; padding: 12px; border-radius: 8px; font-size: 12px; border-left: 3px solid #2563eb; }
+    .task strong { color: #1d4ed8; }
+
+    .spec-highlight { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 14px; margin: 14px 0; font-size: 12px; }
+    .spec-highlight strong { color: #059669; }
+
+    .code-block { background: #1e293b; color: #e2e8f0; padding: 14px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 11px; overflow-x: auto; margin: 12px 0; }
+
+    .audit-card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px; margin: 8px 0; font-size: 12px; }
+    .audit-pass { background: #ecfdf5; border-color: #a7f3d0; }
+    .audit-pass strong { color: #059669; }
+    .audit-fail strong { color: #dc2626; }
+
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 99px; font-size: 10px; font-weight: 700; letter-spacing: .04em; margin-right: 6px; }
+    .badge-sonnet { background: #eff6ff; color: #1d4ed8; }
+    .badge-opus { background: #f5f3ff; color: #7c3aed; }
+    .badge-haiku { background: #fef2f2; color: #dc2626; }
+
+    @media (max-width: 768px) {
+      .timeline { grid-template-columns: 1fr; }
+      .task-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>⚙️ Fluxo Spec-Driven</h1>
+      <p>Teste prático: como usar Specs para automatizar código com auditoria paralela</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-step active">
+        <div class="number">1</div>
+        <div class="title">Spec</div>
+        <div class="desc">Captura do problema + regras</div>
+      </div>
+      <div class="timeline-step">
+        <div class="number">2</div>
+        <div class="title">Plano</div>
+        <div class="desc">Opus divide em 10 etapas</div>
+      </div>
+      <div class="timeline-step">
+        <div class="number">3</div>
+        <div class="title">Executa</div>
+        <div class="desc">Sonnet aplica a Spec</div>
+      </div>
+      <div class="timeline-step">
+        <div class="number">4</div>
+        <div class="title">Audita</div>
+        <div class="desc">Haikus validam em paralelo</div>
+      </div>
+      <div class="timeline-step">
+        <div class="number">5</div>
+        <div class="title">Relata</div>
+        <div class="desc">Documento final</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <h2><div class="phase-number">1</div> Spec (Você)</h2>
+      <p style="font-size: 13px; margin-bottom: 12px;">Você documenta o que precisa ser feito. Exemplo real do Portal DG:</p>
+      <div class="spec-highlight">
+        <strong>Problema:</strong> Telas de Acompanhamento de Projetos quebram em mobile (≤768px)<br>
+        <strong>Objetivo:</strong> 100% responsividade em viewport mobile<br>
+        <strong>Regras:</strong> Design system azul/claro, botões ≥44px, tabelas com scroll interno<br>
+        <strong>Critérios:</strong> 8 checklist items (veja artifact da Spec)
+      </div>
+      <p style="font-size: 12px; color: #64748b; margin-top: 12px;">✓ Spec está documentada (veja artifact anterior)</p>
+    </div>
+
+    <div class="phase">
+      <h2><div class="phase-number">2</div> Plano (Opus)</h2>
+      <p style="font-size: 13px; margin-bottom: 12px;">Opus lê a Spec e divide em 10 etapas executáveis:</p>
+      <div class="task-grid">
+        <div class="task"><strong>Etapa 1:</strong> Auditar estado atual dos 4 arquivos PHP</div>
+        <div class="task"><strong>Etapa 2:</strong> Mapear queries responsive já existentes</div>
+        <div class="task"><strong>Etapa 3:</strong> Criar @media (max-width: 768px) em index.php</div>
+        <div class="task"><strong>Etapa 4:</strong> Responsivizar tabelas (overflow-x: auto)</div>
+        <div class="task"><strong>Etapa 5:</strong> Ajustar tipografia: 13px → 12px em mobile</div>
+        <div class="task"><strong>Etapa 6:</strong> Redimensionar topbar (logo, botões)</div>
+        <div class="task"><strong>Etapa 7:</strong> Fazer o mesmo para projeto.php</div>
+        <div class="task"><strong>Etapa 8:</strong> Aplicar a editar.php</div>
+        <div class="task"><strong>Etapa 9:</strong> Verificar gantt.php (gráfico Gantt responsivo?)</div>
+        <div class="task"><strong>Etapa 10:</strong> Testar em 4 breakpoints reais</div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <h2><div class="phase-number">3</div> Executa (Sonnet 5)</h2>
+      <p style="font-size: 13px; margin-bottom: 12px;"><span class="badge badge-sonnet">Sonnet 5</span> aplica cada etapa. Exemplo (Etapa 3):</p>
+      <div class="code-block">/* Acompanhamento_de_projetos/index.php */
+@media (max-width: 768px) {
+  .hub-main { padding: 28px 16px 72px; }
+  .topbar { padding: 0 16px; gap: 10px; }
+  .topbar-title { font-size: 12px; }
+  table { font-size: 12px; }
+  table { overflow-x: auto; display: block; }
+  tbody { overflow-x: auto; }
+}</div>
+      <p style="font-size: 12px; color: #64748b; margin-top: 12px;">Sonnet edita os 4 arquivos, respeitando: design system tokens + sem quebra de PHP + 0 regressões desktop.</p>
+    </div>
+
+    <div class="phase">
+      <h2><div class="phase-number">4</div> Audita (Haikus em Paralelo)</h2>
+      <p style="font-size: 13px; margin-bottom: 12px;"><span class="badge badge-haiku">Haiku 1: Tokens CSS</span> <span class="badge badge-haiku">Haiku 2: Responsividade</span> <span class="badge badge-haiku">Haiku 3: Acessibilidade</span></p>
+
+      <p style="font-weight: 700; font-size: 12px; color: #0f172a; margin-top: 14px;">Haiku 1 — Auditoria de Tokens CSS</p>
+      <div class="audit-card audit-pass">
+        <strong>✓ PASS:</strong> Cores da Spec vêm de --blue (#2563eb), não hardcoded<br>
+        <strong>✓ PASS:</strong> Espaçamento usa var(--radius): 8px em mobile<br>
+        <strong>✓ PASS:</strong> Poppins carregado via Google Fonts
+      </div>
+
+      <p style="font-weight: 700; font-size: 12px; color: #0f172a; margin-top: 14px;">Haiku 2 — Auditoria de Responsividade</p>
+      <div class="audit-card audit-pass">
+        <strong>✓ PASS:</strong> @media queries no breakpoint exato (768px)<br>
+        <strong>✓ PASS:</strong> Tabelas com overflow-x: auto (não scroll page)<br>
+        <strong>✓ PASS:</strong> Sem regressão desktop: @media não afeta ≥769px
+      </div>
+
+      <p style="font-weight: 700; font-size: 12px; color: #0f172a; margin-top: 14px;">Haiku 3 — Auditoria de Acessibilidade</p>
+      <div class="audit-card audit-pass">
+        <strong>✓ PASS:</strong> Botões: altura 44px (Apple HIG)<br>
+        <strong>✓ PASS:</strong> Touch targets espaçados 8px+<br>
+        <strong>✓ PASS:</strong> Tipografia 12px mín (readability)
+      </div>
+    </div>
+
+    <div class="phase">
+      <h2><div class="phase-number">5</div> Relata (Haiku — Resumo Final)</h2>
+      <p style="font-size: 13px; margin-bottom: 12px;">Haiku gera relatório final consolidando auditoria:</p>
+
+      <div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 16px; font-size: 12px;">
+        <strong style="color: #059669; font-size: 13px;">✓ AUDITORIA COMPLETA — SPEC ATENDIDA</strong><br><br>
+
+        <strong>Arquivos alterados:</strong> 4/4<br>
+        • index.php — @media 768px aplicado ✓<br>
+        • projeto.php — topbar responsive ✓<br>
+        • editar.php — inputs 100% width + padding ✓<br>
+        • gantt.php — gráfico com max-width ✓<br><br>
+
+        <strong>Critérios de Aceitação:</strong> 8/8 PASS<br>
+        ✓ Topbar sem scroll horizontal<br>
+        ✓ Tabelas scroll interno<br>
+        ✓ Cards empilham<br>
+        ✓ Inputs confortáveis<br>
+        ✓ Botões ≥44px<br>
+        ✓ Touch targets ≥44×44px<br>
+        ✓ Modais responsivos<br>
+        ✓ Sem regressão desktop<br><br>
+
+        <strong>Observações:</strong><br>
+        • Design system azul mantido (0 hardcoded colors)<br>
+        • PHP não foi tocado (0 regressão funcional)<br>
+        • Compatibilidade: iOS 12+ ✓, Android 90+ ✓<br>
+        • Pronto para deploy
+      </div>
+    </div>
+
+    <div class="phase" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: #fff; border: none;">
+      <h2 style="color: #fff;"><div class="phase-number" style="background: #fff; color: #2563eb;">?</div> O que fazer com isso?</h2>
+      <p style="font-size: 13px; margin-bottom: 16px;">Agora você tem 2 caminhos:</p>
+
+      <div style="background: rgba(255,255,255,.1); padding: 16px; border-radius: 8px; margin-bottom: 12px;">
+        <strong style="font-size: 13px;">Caminho A: Skill + Agente (Automatizado)</strong><br>
+        <span style="font-size: 12px; opacity: .9;">Criar uma skill <code>/spec-driven</code> que:<br>
+        • Captura a Spec (manual, você escreve)<br>
+        • Dispara agente Opus para plano<br>
+        • Dispara agente Sonnet para execução<br>
+        • Dispara N agentes Haiku para auditoria paralela<br>
+        • Consolida relatório final</span>
+      </div>
+
+      <div style="background: rgba(255,255,255,.1); padding: 16px; border-radius: 8px;">
+        <strong style="font-size: 13px;">Caminho B: Agente Único (Mais simples)</strong><br>
+        <span style="font-size: 12px; opacity: .9;">Um agente <code>spec-executor</code> que:<br>
+        • Recebe a Spec + plano (você traz prontos)<br>
+        • Ele orquestra Sonnet + Haikus internamente<br>
+        • Devolve um relatório final</span>
+      </div>
+    </div>
+
+    <div class="phase">
+      <h2><div class="phase-number">🎓</div> Resumo: Por que Specs funcionam para você</h2>
+      <ul style="font-size: 13px; line-height: 2;">
+        <li>✓ <strong>Sem ping-pong:</strong> Agente sabe exatamente o que fazer antes de começar</li>
+        <li>✓ <strong>Auditoria automática:</strong> Haikus validam contra Spec em paralelo</li>
+        <li>✓ <strong>Rastreabilidade:</strong> Cada mudança é validada contra critérios escritos</li>
+        <li>✓ <strong>Portal DG:</strong> Especialmente útil para regras complexas (RBAC, deploy, responsividade)</li>
+        <li>✓ <strong>Dois passos depois:</strong> Handoff captura lições aprendidas (não repetir erros)</li>
+        <li>✓ <strong>Facilita código review:</strong> Basta comparar resultado com Spec</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
