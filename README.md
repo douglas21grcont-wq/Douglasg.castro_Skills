@@ -33,6 +33,20 @@ Cada skill resolve um problema recorrente. Todas 100% em português, com licenç
 
 **Instalar:** [skills/auditoria-seguranca/INSTALAR.md](skills/auditoria-seguranca/INSTALAR.md)
 
+### claude-entre-computadores
+**O que faz:** Deixa o mesmo Claude Code em todos os seus computadores. Skills, agentes, comandos e CLAUDE.md ficam num repositório git privado seu, e a pasta `~/.claude` de cada computador aponta para ele por atalho de pasta. Criou uma skill em casa, ela aparece no trabalho com um `git pull`.
+
+**Quando usar:** Você usa o Claude em mais de um computador, ou já perdeu configuração numa formatação.
+
+**Pacote:** scripts `ligar.ps1` (Windows) e `ligar.sh` (macOS/Linux), `.gitignore` modelo e a skill que ajuda a montar e diagnosticar.
+
+**Instalar:** [skills/claude-entre-computadores/INSTALAR.md](skills/claude-entre-computadores/INSTALAR.md)
+
+### handoff-projeto
+**O que faz:** Cria e mantém um `handoff.md` na raiz do projeto, o estado vivo dele, para a próxima sessão (ou a próxima máquina) retomar sem se perder.
+
+**Instalar:** [skills/handoff-projeto/INSTALAR.md](skills/handoff-projeto/INSTALAR.md)
+
 ---
 
 ## 🤖 Agentes
@@ -78,9 +92,17 @@ Douglasg.castro_Skills/
 │   │       ├── spec-mobile-test.html (exemplo real)
 │   │       ├── fluxo-spec-driven.html (visual)
 │   │       └── acionamento-spec-driven.html (passo a passo)
-│   └── auditoria-seguranca/
+│   ├── auditoria-seguranca/
+│   │   ├── SKILL.md
+│   │   └── INSTALAR.md
+│   ├── claude-entre-computadores/
+│   │   ├── SKILL.md
+│   │   ├── INSTALAR.md
+│   │   └── modelo/ (ligar.ps1, ligar.sh, gitignore-modelo)
+│   └── handoff-projeto/
 │       ├── SKILL.md
-│       └── INSTALAR.md
+│       ├── INSTALAR.md
+│       └── template.md
 ├── agents/
 │   ├── spec-executor.md (orquestrador)
 │   └── auditor-seguranca.md (varredura de segurança)

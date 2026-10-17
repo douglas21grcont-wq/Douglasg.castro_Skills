@@ -1,0 +1,21 @@
+# Renomeie este arquivo para .gitignore na raiz do SEU repositório.
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Pastas antigas guardadas pelo ligar.ps1 / ligar.sh
+*_ANTIGO_*
+
+# Lixeira que o app do Claude cria ao trocar de conta
+skills/.trash/
+
+# Python
+__pycache__/
+*.pyc
+
+# Segredos: nunca versionar
+.env
+*.key
+credentials*.json
