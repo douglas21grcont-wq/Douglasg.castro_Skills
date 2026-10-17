@@ -84,3 +84,20 @@
 - **Modelo é reutilizável:** Mesma estrutura funciona para outras skills complexas (basta trocar Specs/Haikus por aspectos relevantes).
 
 Qualquer dúvida, volte ao artifact "Acionamento Prático" (`referencias/acionamento-spec-driven.html`). Está tudo documentado lá.
+
+---
+
+## Atualização 2026-10-17: pacote `claude-entre-computadores`
+
+- Skill nova com instalação em um comando: `instalar.ps1` (Windows) e `instalar.sh` (macOS/Linux) em
+  `skills/claude-entre-computadores/`; `modelo/` traz `ligar.ps1`, `ligar.sh` e `gitignore-modelo`.
+  Divulgada no post do Instagram `21 post - claude entre computadores`.
+- Testado: `instalar.ps1` em duas máquinas simuladas (Windows, repositório local como remoto) e
+  `ligar.ps1` isolado. **Não testado:** `instalar.sh` em Mac/Linux (só `bash -n`), criação do repositório
+  via `gh repo create` e o comando `irm …/instalar.ps1 | iex` direto do GitHub (só funciona depois do push).
+- Armadilha aprendida: no PowerShell 5.1 qualquer aviso do `git` no stderr vira erro fatal com
+  `$ErrorActionPreference = 'Stop'`; as chamadas ao git/gh do `instalar.ps1` passam por funções `G`/`H`.
+  Parâmetro `$Repo` sem tipo, senão `[string]` transforma `$null` em `''` e nunca pergunta.
+- Regra mantida: repositório do usuário **privado e no disco local**, nunca em OneDrive/Drive.
+- Pendente: push do README, `INSTALAR.md`, `SKILL.md`, `instalar.ps1`, `instalar.sh`; rodar o instalador
+  numa máquina limpa antes do post sair.

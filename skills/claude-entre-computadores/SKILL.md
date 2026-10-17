@@ -25,7 +25,8 @@ editar o repositório, e o outro computador recebe com `git pull`.
 
 ## Montar pela primeira vez
 
-Siga o `INSTALAR.md` desta pasta. Resumo:
+O caminho mais curto é o comando único do `INSTALAR.md` (`instalar.ps1` no Windows,
+`instalar.sh` no macOS/Linux): ele faz os passos abaixo sozinho. Passo a passo manual:
 1. Criar um repositório **privado** vazio no GitHub.
 2. Clonar fora da nuvem.
 3. Copiar para a raiz dele os arquivos de `modelo/` (`ligar.ps1`, `ligar.sh`, e o

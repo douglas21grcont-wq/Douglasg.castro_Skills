@@ -38,7 +38,17 @@ Cada skill resolve um problema recorrente. Todas 100% em português, com licenç
 
 **Quando usar:** Você usa o Claude em mais de um computador, ou já perdeu configuração numa formatação.
 
-**Pacote:** scripts `ligar.ps1` (Windows) e `ligar.sh` (macOS/Linux), `.gitignore` modelo e a skill que ajuda a montar e diagnosticar.
+**Instalação em um comando:**
+```powershell
+# Windows
+irm https://raw.githubusercontent.com/douglas21grcont-wq/Douglasg.castro_Skills/master/skills/claude-entre-computadores/instalar.ps1 | iex
+```
+```bash
+# macOS / Linux
+curl -fsSL https://raw.githubusercontent.com/douglas21grcont-wq/Douglasg.castro_Skills/master/skills/claude-entre-computadores/instalar.sh | bash
+```
+
+**Pacote:** instaladores de um comando, scripts `ligar.ps1` / `ligar.sh`, `.gitignore` modelo e a skill que ajuda a montar e diagnosticar.
 
 **Instalar:** [skills/claude-entre-computadores/INSTALAR.md](skills/claude-entre-computadores/INSTALAR.md)
 
@@ -98,6 +108,8 @@ Douglasg.castro_Skills/
 │   ├── claude-entre-computadores/
 │   │   ├── SKILL.md
 │   │   ├── INSTALAR.md
+│   │   ├── instalar.ps1 (instalação em um comando, Windows)
+│   │   ├── instalar.sh (instalação em um comando, macOS/Linux)
 │   │   └── modelo/ (ligar.ps1, ligar.sh, gitignore-modelo)
 │   └── handoff-projeto/
 │       ├── SKILL.md

@@ -5,15 +5,68 @@ os agentes, os comandos e o CLAUDE.md ficam num repositório git seu, e cada
 computador aponta para ele. Criou uma skill em casa, ela aparece no trabalho com
 um `git pull`.
 
-Tempo: uns 15 minutos na primeira máquina, 2 minutos nas outras.
+## Instalação em um comando
 
-## O que você precisa
+Precisa só do **git** instalado (`git --version` responde) e do Claude Code.
 
-- Git instalado (`git --version` responde).
-- Uma conta no GitHub (ou GitLab, Bitbucket: qualquer remoto privado serve).
-- Claude Code instalado nos computadores.
+**Windows** (PowerShell):
+```powershell
+irm https://raw.githubusercontent.com/douglas21grcont-wq/Douglasg.castro_Skills/master/skills/claude-entre-computadores/instalar.ps1 | iex
+```
 
-## Passo a passo: primeira máquina
+**macOS / Linux** (terminal):
+```bash
+curl -fsSL https://raw.githubusercontent.com/douglas21grcont-wq/Douglasg.castro_Skills/master/skills/claude-entre-computadores/instalar.sh | bash
+```
+
+### Como rodar o comando
+
+O comando não vai no Claude Code nem no navegador: ele é colado no **terminal** do
+computador.
+
+| sistema | onde abrir | como rodar |
+|---|---|---|
+| Windows | menu Iniciar, digite **PowerShell** e abra o "Windows PowerShell" (não precisa ser como administrador) | clique com o botão direito na janela para colar (ou Ctrl+V) e tecle **Enter** |
+| macOS | Spotlight (Cmd+Espaço), digite **Terminal** e abra | Cmd+V para colar e tecle **Enter** |
+| Linux | o terminal da sua distribuição (Ctrl+Alt+T na maioria) | Ctrl+Shift+V para colar e tecle **Enter** |
+
+Dica: no VS Code, o terminal integrado (menu Terminal → Novo Terminal) também serve.
+
+Se aparecer erro de "execução de scripts desabilitada" no Windows, rode antes, uma vez:
+`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` e confirme com `S`. Depois, rode o comando de novo.
+
+### Ou peça para o Claude Code instalar
+
+Se você já tem o Claude Code aberto, não precisa do terminal: cole este pedido na
+conversa e ele faz o passo a passo por você (vai pedir permissão para rodar os comandos;
+leia e aprove).
+
+```
+Instale o pacote claude-entre-computadores para mim. Leia o INSTALAR.md em
+https://raw.githubusercontent.com/douglas21grcont-wq/Douglasg.castro_Skills/master/skills/claude-entre-computadores/INSTALAR.md
+e rode o comando de instalação do meu sistema. Pergunte o endereço do meu
+repositório privado do GitHub quando precisar.
+```
+
+O resultado é o mesmo do comando no terminal.
+
+O comando pergunta uma coisa só: o endereço do seu repositório privado no GitHub.
+
+- **Primeiro computador:** deixe em branco. Se você tem o [GitHub CLI](https://cli.github.com)
+  logado (`gh auth login`), ele cria o repositório privado `meu-claude` sozinho. Sem o
+  GitHub CLI, tudo fica pronto neste computador e você liga ao GitHub depois
+  (`git remote add origin <endereço>` e `git push -u origin main`).
+- **Outros computadores:** cole o endereço do repositório (ex.:
+  `https://github.com/voce/meu-claude.git`).
+
+O que ele faz: cria `C:\projetos\meu-claude` (ou `~/projetos/meu-claude`) no disco
+local, traz as skills, agentes, comandos e o CLAUDE.md que você já tem (nada é
+apagado; a pasta original fica guardada com `_ANTIGO_<data>`), liga a `~/.claude` ao
+repositório e grava a primeira versão. Depois, feche e reabra o Claude Code.
+
+Prefere fazer à mão, ou quer entender cada etapa? Siga o passo a passo abaixo.
+
+## Passo a passo manual: primeira máquina
 
 **1. Crie um repositório privado e vazio no GitHub.**
 Nome sugerido: `meu-claude`. Marque **Private**. Não adicione README.
@@ -65,7 +118,7 @@ git push
 ```
 Quando tudo estiver certo, pode apagar as pastas `_ANTIGO_` da `~/.claude`.
 
-## Passo a passo: outro computador
+## Passo a passo manual: outro computador
 
 1. Instale git e Claude Code.
 2. Clone o **seu** repositório fora da nuvem (passo 2 acima).
